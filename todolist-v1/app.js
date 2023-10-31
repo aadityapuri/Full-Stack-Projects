@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
 let item = ['Buy Food', 'Cook Food', 'Eat Food'];
+let workList = [];
 
 app.get("/", function(req, res){
   let today= new Date();
@@ -48,16 +49,35 @@ app.get("/", function(req, res){
   // }
   // console.log("this is fine!");
   res.render("list",{
-    dayKind: str,
+    listTitle: str,
     newListItem: item
   });
 });
 
 app.post('/',(req,res)=>{
-  item.push(req.body.addListItem);
+  // console.log(req.body);
+  if(req.body.button == 'Work'){
+    workList.push(req.body.addListItem);
+    res.redirect("/work");
+  }
+  else{
+    item.push(req.body.addListItem);
+    res.redirect("/");
+  }
   // console.log(req.body.addListItem);
-  res.redirect("/");
 });
+
+app.get('/work',(req, res)=>{
+  res.render('list',{
+    listTitle: "Work",
+    newListItem: workList,
+  });
+});
+
+// app.post('/work',(req,res)=>{
+//   workList.push(req.body.addListItem);
+//   res.redirect("/work");
+// });
 
 app.listen(3000, function(){
   console.log("Server has started on port 3000");
