@@ -2,9 +2,9 @@
 
 <h1>Home</h1>
 <p><%=homeContent %></p>
-<% for(let i=0; i<textArr.length; i++){ %>
-  <h1><%= textArr[i].titleText %></h1>
-  <p><%= textArr[i].postText %></p>
-<% } %>
+<% textArr.forEach(function(text){ %>
+  <h1><%= text.titleText %></h1>
+  <p><%= text.postText %></p>
+<% }); %>
 
 <%- include("partials/footer") -%>

@@ -25,6 +25,15 @@ app.get('/',function(req, res){
   });
 })
 
+app.get('/posts/:param',function(req,res){
+  console.log(req.params.param);
+  for(let i=0;i<textArr.length;i++){
+    if(textArr[i].titleText === req.params.param){
+      console.log("Matched!");
+    }
+  }
+})
+
 app.get('/compose',function(req, res){
   res.render("compose");
 })
